@@ -75,3 +75,22 @@ keymap.set("n", "<C-j>", "<C-w>j", opts)
 
 opts.desc = "Move to upper window"
 keymap.set("n", "<C-k>", "<C-w>k", opts)
+
+-- Buffers
+opts.desc = "Prev buffer"
+keymap.set("n", "H", ":bprevious<CR>", opts)
+
+opts.desc = "Next buffer"
+keymap.set("n", "L", ":bnext<CR>", opts)
+
+opts.desc = "First buffer"
+keymap.set("n", "gH", ":bfirst<CR>", opts)
+
+opts.desc = "Last buffer"
+keymap.set("n", "gL", ":blast<CR>", opts)
+
+opts.desc = "Alternate buffer"
+keymap.set("n", "<leader><Tab>", "<C-^>", opts)
+
+opts.desc = "Delete current buffer"
+keymap.set("n", "<leader>bd", ":bdelete<CR>", opts)
