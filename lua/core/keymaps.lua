@@ -14,6 +14,9 @@ keymap.set({ "n", "v" }, "<Space>", "<Nop>", opts)
 opts.desc = "Save file"
 keymap.set("n", "<C-s>", "<cmd>w<CR>", opts)
 
+opts.desc = "Save file (insert mode)"
+keymap.set("i", "<C-s>", "<C-o>:update<CR>", opts)
+
 opts.desc = "Save without formatting"
 keymap.set("n", "<leader>sn", "<cmd>noautocmd w<CR>", opts)
 
