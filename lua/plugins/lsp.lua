@@ -28,27 +28,63 @@ return {
 			capabilities = blink.get_lsp_capabilities(capabilities)
 		end
 
-		-- on_attach
+		-- on_attach: minimal + keymaps (buffer-local)
 		local on_attach = function(client, bufnr)
+			-- Disable formatting from these servers
 			local disable_fmt = { vtsls = true, tsserver = true, lua_ls = true, jsonls = true, yamlls = true }
 			if disable_fmt[client.name] then
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
 			end
+
+			-- Inlay hints (auto-enable if supported)
 			if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
 				pcall(vim.lsp.inlay_hint.enable, true, { bufnr = bufnr })
 			end
-			if client.name == "vtsls" then
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					buffer = bufnr,
-					callback = function()
-						pcall(
-							vim.lsp.buf.code_action,
-							{ context = { only = { "source.organizeImports" } }, apply = true }
-						)
-					end,
-				})
+
+			-- Buffer-local maps
+			local function bmap(mode, lhs, rhs, desc)
+				vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, noremap = true, desc = desc })
 			end
+
+			-- Prefer Telescope pickers when available
+			local has_telescope, tb = pcall(require, "telescope.builtin")
+			local def = has_telescope and tb.lsp_definitions or vim.lsp.buf.definition
+			local refs = has_telescope and tb.lsp_references or vim.lsp.buf.references
+			local impl = has_telescope and tb.lsp_implementations or vim.lsp.buf.implementation
+			local tdef = has_telescope and tb.lsp_type_definitions or vim.lsp.buf.type_definition
+			local dsym = has_telescope and tb.lsp_document_symbols or vim.lsp.buf.document_symbol
+			local wsym = has_telescope and tb.lsp_workspace_symbols or vim.lsp.buf.workspace_symbol
+
+			-- Core LSP
+			bmap("n", "K", vim.lsp.buf.hover, "LSP: Hover")
+			bmap("n", "gd", def, "LSP: Definition")
+			bmap("n", "gD", vim.lsp.buf.declaration, "LSP: Declaration")
+			bmap("n", "gr", refs, "LSP: References")
+			bmap("n", "gi", impl, "LSP: Implementations")
+			bmap("n", "gT", tdef, "LSP: Type Definition")
+			bmap("n", "gs", vim.lsp.buf.signature_help, "LSP: Signature Help")
+
+			-- Actions / symbols / format
+			bmap("n", "<leader>cr", vim.lsp.buf.rename, "LSP: Rename")
+			bmap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "LSP: Code Action")
+			bmap("n", "<leader>ds", dsym, "LSP: Document Symbols")
+			bmap("n", "<leader>ws", wsym, "LSP: Workspace Symbols")
+			bmap("n", "<leader>cf", function()
+				vim.lsp.buf.format({ async = false })
+			end, "LSP: Format")
+
+			-- Optional: toggle inlay hints
+			bmap("n", "<leader>ci", function()
+				local ih = vim.lsp.inlay_hint
+				if not ih or not ih.is_enabled then
+					return
+				end
+				local ok, enabled = pcall(ih.is_enabled, { bufnr = bufnr })
+				if ok then
+					ih.enable(not enabled, { bufnr = bufnr })
+				end
+			end, "LSP: Toggle Inlay Hints")
 		end
 
 		-- Servers
@@ -148,5 +184,18 @@ return {
 			underline = true,
 			update_in_insert = false,
 		})
+
+		-- Global diagnostic maps (define once)
+		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { silent = true, desc = "Diag: Next" })
+		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { silent = true, desc = "Diag: Prev" })
+		vim.keymap.set("n", "gl", vim.diagnostic.open_float, { silent = true, desc = "Diag: Line Diagnostics" })
+		vim.keymap.set("n", "<leader>dd", function()
+			local ok, tb = pcall(require, "telescope.builtin")
+			if ok then
+				tb.diagnostics()
+			else
+				vim.diagnostic.setloclist()
+			end
+		end, { silent = true, desc = "Diag: List All" })
 	end,
 }

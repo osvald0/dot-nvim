@@ -70,9 +70,15 @@ return {
 				mf.open(vim.loop.cwd(), false)
 			end, { desc = "Explorer (mini.files) CWD" })
 
-			vim.keymap.set("n", "<leader>E", function()
-				mf.open(vim.api.nvim_buf_get_name(0), false)
-			end, { desc = "Explorer (mini.files) file" })
+			vim.keymap.set("n", "<leader>ef", function()
+				local bufname = vim.api.nvim_buf_get_name(0)
+				if bufname ~= "" then
+					local dir = vim.fn.fnamemodify(bufname, ":h")
+					mf.open(dir, false)
+				else
+					mf.open(vim.loop.cwd(), false)
+				end
+			end, { desc = "Explorer (mini.files) file dir" })
 		end,
 	},
 }
