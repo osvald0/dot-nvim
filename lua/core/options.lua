@@ -1,30 +1,6 @@
 -- For conciseness
 local opt = vim.opt
 
--- Disable some built-in runtime plugins for a cleaner startup
-for _, p in ipairs({
-	"2html_plugin",
-	"gzip",
-	"matchit",
-	"matchparen",
-	"netrw",
-	"netrwPlugin",
-	"netrwSettings",
-	"netrwFileHandlers",
-	"rplugin",
-	"shada_plugin",
-	"tar",
-	"tarPlugin",
-	"tohtml",
-	"tutor",
-	"zip",
-	"zipPlugin",
-}) do
-	pcall(function()
-		vim.g["loaded_" .. p] = 1
-	end)
-end
-
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -111,4 +87,3 @@ opt.backspace = "indent,eol,start"
 
 -- Turn off swapfile
 opt.swapfile = false
-

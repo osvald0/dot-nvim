@@ -1,21 +1,8 @@
--- fet leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- vim.o.timeout = true
--- vim.o.timeoutlen = 350
---
--- For conciseness
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
-
--- Treat <leader>s as a prefix (normal + visual)
--- opts.desc = "[S]earch prefix"
--- vim.keymap.set({ "n", "x" }, "<leader>s", "<Nop>")
-
--- Leader key behavior
-opts.desc = "Disable default spacebar action"
-keymap.set({ "n", "v" }, "<Space>", "<Nop>", opts)
 
 -- File operations
 opts.desc = "Save file"
@@ -105,14 +92,13 @@ keymap.set("n", "<leader><Tab>", "<C-^>", opts)
 opts.desc = "Delete current buffer"
 keymap.set("n", "<leader>bd", ":bdelete<CR>", opts)
 
--- Open a terminal in the directory of the current file in a new tmux window
 vim.keymap.set("n", "<leader>fT", function()
 	local file_dir = vim.fn.expand("%:p:h")
 	vim.fn.system("tmux new-window -c " .. vim.fn.shellescape(file_dir))
 end, { desc = "Open new tmux window in file directory" })
 
--- Copy the full file path to the clipboard
 vim.keymap.set("n", "<leader>cp", ":let @+ = expand('%:p')<CR>", { silent = true, desc = "Copy file path" })
+
 vim.keymap.set("n", "<leader>cn", ":let @+ = expand('%:t')<CR>", { silent = true, desc = "Copy file name" })
 
 -- Open the file's directory in Finder
@@ -132,5 +118,4 @@ vim.keymap.set("v", "<D-j>", ":m '>+1<CR>gv", { noremap = true, silent = true, d
 
 vim.keymap.set("v", "<D-k>", ":m '<-2<CR>gv", { noremap = true, silent = true, desc = "Move selection up" })
 
--- Paste over selection without overwriting the default yank register
 vim.keymap.set("x", "<leader>P", [["_dP]], { desc = "Paste without yanking replaced text" })
