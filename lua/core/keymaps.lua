@@ -61,25 +61,25 @@ keymap.set("n", "N", "Nzzzv", opts)
 -- keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", opts)
 --
 -- -- Window navigation
--- opts.desc = "Move to left window"
--- keymap.set("n", "<C-h>", "<C-w>h", opts)
---
--- opts.desc = "Move to right window"
--- keymap.set("n", "<C-l>", "<C-w>l", opts)
---
--- opts.desc = "Move to lower window"
--- keymap.set("n", "<C-j>", "<C-w>j", opts)
---
--- opts.desc = "Move to upper window"
--- keymap.set("n", "<C-k>", "<C-w>k", opts)
+opts.desc = "Move to left window"
+keymap.set("n", "<C-h>", "<C-w>h", opts)
+
+opts.desc = "Move to right window"
+keymap.set("n", "<C-l>", "<C-w>l", opts)
+
+opts.desc = "Move to lower window"
+keymap.set("n", "<C-j>", "<C-w>j", opts)
+
+opts.desc = "Move to upper window"
+keymap.set("n", "<C-k>", "<C-w>k", opts)
 
 -- Buffers
--- opts.desc = "Prev buffer"
--- keymap.set("n", "H", ":bprevious<CR>", opts)
---
--- opts.desc = "Next buffer"
--- keymap.set("n", "L", ":bnext<CR>", opts)
---
+opts.desc = "Prev buffer"
+keymap.set("n", "H", ":bprevious<CR>", opts)
+
+opts.desc = "Next buffer"
+keymap.set("n", "L", ":bnext<CR>", opts)
+
 -- opts.desc = "First buffer"
 -- keymap.set("n", "gH", ":bfirst<CR>", opts)
 --
