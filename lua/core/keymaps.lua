@@ -20,6 +20,11 @@ keymap.set("n", "<leader>qq", "<cmd>qa<CR>", opts)
 opts.desc = "Quit current window"
 keymap.set("n", "<C-q>", "<cmd>q<CR>", opts)
 
+-- File explorer
+
+opts.desc = "Toggle file explorer"
+keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
+
 -- Scrolling & search
 opts.desc = "Scroll down and center"
 keymap.set("n", "<C-d>", "<C-d>zz", opts)
@@ -86,11 +91,11 @@ keymap.set("n", "L", ":bnext<CR>", opts)
 -- opts.desc = "Last buffer"
 -- keymap.set("n", "gL", ":blast<CR>", opts)
 --
--- opts.desc = "Alternate buffer"
--- keymap.set("n", "<leader><Tab>", "<C-^>", opts)
+opts.desc = "Alternate buffer"
+keymap.set("n", "<leader><Tab>", "<C-^>", opts)
 --
--- opts.desc = "Delete current buffer"
--- keymap.set("n", "<leader>bd", ":bdelete<CR>", opts)
+opts.desc = "Delete current buffer"
+keymap.set("n", "<leader>bd", ":bdelete<CR>", opts)
 --
 -- vim.keymap.set("n", "<leader>fT", function()
 -- 	local file_dir = vim.fn.expand("%:p:h")
