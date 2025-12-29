@@ -14,7 +14,7 @@ return {
 			-- 0 = just filename
 			-- 1 = relative path
 			-- 2 = absolute path
-			path = 0,
+			path = 1,
 		}
 
 		local hide_in_width = function()

@@ -7,6 +7,12 @@ return {
 	},
 	config = function()
 		require("nvim-tree").setup({
+			-- view = {
+			-- 	hide_root_folder = true,
+			-- },
+			renderer = {
+				root_folder_label = ":t",
+			},
 			filters = {
 				dotfiles = true,
 			},
