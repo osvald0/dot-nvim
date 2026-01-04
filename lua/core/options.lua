@@ -1,6 +1,9 @@
 -- For conciseness
 local opt = vim.opt
 
+-- Enable global statusline.
+vim.opt.laststatus = 3
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
