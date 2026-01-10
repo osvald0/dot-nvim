@@ -48,9 +48,9 @@ keymap.set("n", "N", "Nzzzv", opts)
 -- opts.desc = "Indent right and keep selection"
 -- keymap.set("v", ">", ">gv", opts)
 
--- -- UI / visual
--- opts.desc = "Clear search highlight"
--- keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
+-- UI / visual
+opts.desc = "Clear search highlight"
+keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
 --
 -- opts.desc = "Toggle line wrap"
 -- keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
