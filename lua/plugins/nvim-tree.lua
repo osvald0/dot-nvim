@@ -12,6 +12,11 @@ return {
 			-- },
 			renderer = {
 				root_folder_label = ":t",
+				highlight_opened_files = "name",
+			},
+			update_focused_file = {
+				enable = true,
+				update_root = false,
 			},
 			filters = {
 				dotfiles = true,
