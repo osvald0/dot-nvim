@@ -1,6 +1,9 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		-- Pin to the legacy `master` branch. The default `main` branch is a
+		-- breaking rewrite that removes the `nvim-treesitter.configs` API below.
+		branch = "master",
 		build = ":TSUpdate",
 		main = "nvim-treesitter.configs",
 		opts = {
@@ -20,9 +23,8 @@ return {
 			auto_install = true,
 			highlight = {
 				enable = true,
-				additional_vim_regex_highlighting = { "ruby" },
 			},
-			indent = { enable = true, disable = { "ruby" } },
+			indent = { enable = true },
 		},
 	},
 }

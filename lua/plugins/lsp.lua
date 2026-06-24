@@ -125,6 +125,15 @@ return {
 				jsonls = {},
 			}
 
+			-- mason-lspconfig v2 removed the `handlers` option. Configure servers the
+			-- Neovim 0.11 native way: advertise blink.cmp capabilities to every server
+			-- via the "*" config, then apply per-server overrides. mason-lspconfig's
+			-- `automatic_enable` (default) then calls vim.lsp.enable() for what's installed.
+			vim.lsp.config("*", { capabilities = capabilities })
+			for server_name, config in pairs(servers) do
+				vim.lsp.config(server_name, config)
+			end
+
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua",
@@ -132,15 +141,7 @@ return {
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 			require("mason-lspconfig").setup({
-				ensure_installed = {},
-				automatic_installation = false,
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
-				},
+				automatic_enable = true,
 			})
 		end,
 	},

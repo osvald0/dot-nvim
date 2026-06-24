@@ -9,7 +9,7 @@ opts.desc = "Save file (insert mode)"
 keymap.set("i", "<C-s>", "<C-o>:update<CR>", opts)
 
 opts.desc = "Save without formatting"
-keymap.set("n", "<leader>sn", "<cmd>noautocmd w<CR>", opts)
+keymap.set("n", "<leader>sN", "<cmd>noautocmd w<CR>", opts)
 
 opts.desc = "Quit all files"
 keymap.set("n", "<leader>qq", "<cmd>qa<CR>", opts)
