@@ -35,6 +35,32 @@ keymap.set("n", "n", "nzzzv", opts)
 opts.desc = "Find previous and center"
 keymap.set("n", "N", "Nzzzv", opts)
 
+opts.desc = "Highlight + label matches of selection"
+keymap.set("x", "*", function()
+	-- Yank the visual selection into register v without clobbering the
+	-- clipboard, then restore whatever was in v afterwards.
+	local save = vim.fn.getreg("v")
+	local save_type = vim.fn.getregtype("v")
+	vim.cmd('noautocmd normal! "vy')
+	local text = vim.fn.getreg("v")
+	vim.fn.setreg("v", save, save_type)
+
+	-- Search literally (\V = very nomagic): only escape "\" and "/",
+	-- and turn newlines into \n so multiline selections still match.
+	local pat = vim.fn.escape(text, [[\/]]):gsub("\n", [[\n]])
+	vim.fn.setreg("/", [[\V]] .. pat)
+	vim.fn.histadd("search", vim.fn.getreg("/"))
+	vim.o.hlsearch = true
+
+	-- Label every match so you can jump straight to a specific one
+	-- (press the shown letter). Falls back to plain highlight if flash
+	-- isn't available yet.
+	local ok, flash = pcall(require, "flash")
+	if ok then
+		flash.jump({ pattern = text, search = { mode = "exact" } })
+	end
+end, opts)
+
 -- Text editing
 -- opts.desc = "Delete without yanking"
 -- keymap.set("n", "x", '"_x', opts)
