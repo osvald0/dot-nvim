@@ -72,6 +72,16 @@ return {
 			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
 			vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
 			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+			vim.keymap.set("x", "<leader>sw", function()
+				-- Grep the visual selection across the project, without
+				-- clobbering the clipboard (restore register v afterwards).
+				local save = vim.fn.getreg("v")
+				local save_type = vim.fn.getregtype("v")
+				vim.cmd('noautocmd normal! "vy')
+				local text = vim.fn.getreg("v")
+				vim.fn.setreg("v", save, save_type)
+				builtin.grep_string({ search = text })
+			end, { desc = "[S]earch selected text (project)" })
 			vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
