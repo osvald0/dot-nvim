@@ -1,0 +1,63 @@
+# dot-nvim
+
+My personal Neovim configuration, based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) and managed with [lazy.nvim](https://github.com/folke/lazy.nvim).
+
+## Requirements
+
+- **Neovim** ≥ 0.10
+- **git**
+- **[ripgrep](https://github.com/BurntSushi/ripgrep)** — for Telescope grep
+- **make** + a C compiler — for `telescope-fzf-native` and Treesitter parsers
+- A **[Nerd Font](https://www.nerdfonts.com/)** selected in your terminal (for icons)
+- Optional external tools used by LSP/formatting: `node`, `stylua`, `prettierd`/`prettier`
+
+## Install
+
+```sh
+git clone <this-repo> ~/.config/nvim
+nvim
+```
+
+On first launch, `lazy.nvim` bootstraps itself and installs all plugins automatically.
+
+## Structure
+
+```
+init.lua              -- entry point (sets leader keys, loads core)
+lua/core/
+  options.lua         -- editor options
+  keymaps.lua         -- key mappings
+  lazy.lua            -- plugin manager bootstrap + spec import
+  snippets.lua
+lua/plugins/          -- one file per plugin (auto-imported)
+```
+
+Leader keys: `<Space>` (leader), `,` (localleader).
+
+## What's included
+
+- **Colorscheme** — Dracula
+- **Completion** — blink.cmp
+- **LSP** — nvim-lspconfig (clangd, gopls, pyright, rust_analyzer, ts_ls, lua_ls, jsonls)
+- **Formatting** — conform.nvim (stylua, prettier)
+- **Fuzzy finder** — Telescope (+ fzf-native, ui-select)
+- **File explorer** — nvim-tree
+- **Syntax** — nvim-treesitter, nvim-ts-autotag
+- **Git** — gitsigns
+- **Navigation** — flash.nvim (labeled jumps)
+- **Editing/UI** — mini.nvim, which-key, trouble, todo-comments, indent-blankline, render-markdown
+
+## Handy keymaps
+
+| Key | Action |
+| --- | --- |
+| `<leader>e` | Toggle file explorer |
+| `<leader>sf` | Find files |
+| `<leader>sg` | Live grep (project) |
+| `<leader>sw` | Grep word under cursor (normal) / selection (visual), project-wide |
+| `<leader>/` | Fuzzy search current buffer |
+| `<C-s>` | Save file |
+| `<C-h/j/k/l>` | Move between windows |
+| `H` / `L` | Previous / next buffer |
+| `s` | Flash jump |
+| `*` (visual) | Highlight + label all matches of the selection |
