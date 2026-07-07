@@ -11,8 +11,8 @@ return {
 				icons = {
 					glyphs = {
 						folder = {
-							arrow_closed = "▶",
-							arrow_open = "▼",
+							arrow_closed = ">",
+							arrow_open = "⌄",
 						},
 					},
 				},
@@ -31,5 +31,12 @@ return {
 				})
 			end,
 		})
+
+		local function set_arrow_hl()
+			vim.api.nvim_set_hl(0, "NvimTreeFolderArrowClosed", { fg = "#7d5ba6" })
+			vim.api.nvim_set_hl(0, "NvimTreeFolderArrowOpen", { fg = "#7d5ba6" })
+		end
+		set_arrow_hl()
+		vim.api.nvim_create_autocmd("ColorScheme", { callback = set_arrow_hl })
 	end,
 }
