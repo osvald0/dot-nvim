@@ -2,12 +2,12 @@ return {
 	"folke/flash.nvim",
 	event = "VeryLazy",
 	opts = {
-		-- Keep flash focused on labeled jumping only. Leave the built-in
-		-- f/t/F/T motions and / search untouched (flip these to true to let
-		-- flash label those too).
+		-- Label matches while searching with / and ? so you can jump
+		-- straight to any result by pressing its label. Leave the built-in
+		-- f/t/F/T motions untouched (flip char to true to label those too).
 		modes = {
 			char = { enabled = false },
-			search = { enabled = false },
+			search = { enabled = true },
 		},
 	},
 	keys = {
