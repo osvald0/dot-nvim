@@ -102,11 +102,11 @@ opts.desc = "Move to upper window"
 keymap.set("n", "<C-k>", "<C-w>k", opts)
 
 -- Buffers
-opts.desc = "Prev buffer"
-keymap.set("n", "H", ":bprevious<CR>", opts)
+opts.desc = "Prev buffer (tab order)"
+keymap.set("n", "H", "<cmd>BufferLineCyclePrev<CR>", opts)
 
-opts.desc = "Next buffer"
-keymap.set("n", "L", ":bnext<CR>", opts)
+opts.desc = "Next buffer (tab order)"
+keymap.set("n", "L", "<cmd>BufferLineCycleNext<CR>", opts)
 
 -- opts.desc = "First buffer"
 -- keymap.set("n", "gH", ":bfirst<CR>", opts)

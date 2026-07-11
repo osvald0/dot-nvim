@@ -45,6 +45,7 @@ Leader keys: `<Space>` (leader), `,` (localleader).
 - **Syntax** — nvim-treesitter, nvim-ts-autotag
 - **Git** — gitsigns
 - **Navigation** — flash.nvim (labeled jumps)
+- **Buffer tabs** — bufferline.nvim
 - **Editing/UI** — mini.nvim, which-key, trouble, todo-comments, indent-blankline, render-markdown
 
 ## Keymaps
@@ -62,7 +63,9 @@ Leader is `<Space>`. `<leader>` below means Space.
 | `<leader>e` | Toggle file explorer (nvim-tree) |
 | `<leader>bd` | Delete current buffer |
 | `<leader><Tab>` | Alternate buffer |
-| `H` / `L` | Previous / next buffer |
+| `H` / `L` | Previous / next buffer tab (visible order) |
+| `<leader>1`…`<leader>9` | Jump to tab 1–9 |
+| `<leader>bp` | Pick a tab by letter |
 | `<leader><leader>` | Find existing buffers |
 | `<C-h/j/k/l>` | Move between windows |
 | `<C-d>` / `<C-u>` | Scroll half-page & center |
