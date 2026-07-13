@@ -29,6 +29,12 @@ return {
 					silent = true,
 					nowait = true,
 				})
+				vim.keymap.set("n", "+", function()
+					api.tree.resize({ relative = 5 })
+				end, { desc = "nvim-tree: Widen", buffer = bufnr, noremap = true, silent = true, nowait = true })
+				vim.keymap.set("n", "=", function()
+					api.tree.resize({ relative = -5 })
+				end, { desc = "nvim-tree: Narrow", buffer = bufnr, noremap = true, silent = true, nowait = true })
 			end,
 		})
 

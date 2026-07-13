@@ -61,6 +61,7 @@ Leader is `<Space>`. `<leader>` below means Space.
 | `<leader>qq` | Quit all |
 | `<C-q>` | Quit current window |
 | `<leader>e` | Toggle file explorer (nvim-tree) |
+| `+` / `=` (in tree) | Widen / narrow the file tree |
 | `<leader>bd` | Delete current buffer |
 | `<leader><Tab>` | Alternate buffer |
 | `H` / `L` | Previous / next buffer tab (visible order) |

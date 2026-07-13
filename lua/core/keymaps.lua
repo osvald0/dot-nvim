@@ -147,3 +147,18 @@ keymap.set("n", "<leader>bd", ":bdelete<CR>", opts)
 -- vim.keymap.set("v", "<D-k>", ":m '<-2<CR>gv", { noremap = true, silent = true, desc = "Move selection up" })
 --
 -- vim.keymap.set("x", "<leader>P", [["_dP]], { desc = "Paste without yanking replaced text" })
+
+-- Open a terminal in the directory of the current file in a new tmux window
+vim.keymap.set("n", "<leader>fT", function()
+	local file_dir = vim.fn.expand("%:p:h")
+	vim.fn.system("tmux new-window -c " .. vim.fn.shellescape(file_dir))
+end, { desc = "Open new tmux window in file directory" })
+
+-- Copy the full file path to the clipboard
+vim.keymap.set("n", "<leader>cp", ":let @+ = expand('%:p')<CR>", { silent = true, desc = "Copy file path" })
+vim.keymap.set("n", "<leader>cn", ":let @+ = expand('%:t')<CR>", { silent = true, desc = "Copy file name" })
+
+-- Open the file's directory in Finder
+vim.keymap.set("n", "<leader>of", function()
+	vim.fn.system("open " .. vim.fn.expand("%:h"))
+end, { silent = true, desc = "Open file directory in Finder" })
