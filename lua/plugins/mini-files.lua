@@ -14,9 +14,9 @@ return {
 				close = "q",
 				go_in = "<CR>",
 				go_in_plus = "l",
-				go_out = "h",
-				go_out_plus = "H",
-				reset = "<BS>",
+				go_out = "<BS>",
+				go_out_plus = "h",
+				reset = "<C-r>",
 				reveal_cwd = "@",
 				show_help = "g?",
 				synchronize = "=",
@@ -54,15 +54,6 @@ return {
 					vim.keymap.set("n", "P", function()
 						mf.refresh({ windows = { preview = false } })
 					end, { buffer = args.buf, nowait = true, desc = "Preview off" })
-				end,
-			})
-
-			vim.api.nvim_create_autocmd("BufEnter", {
-				callback = function(ev)
-					local bt, ft = vim.bo[ev.buf].buftype, vim.bo[ev.buf].filetype
-					if ft ~= "minifiles" and bt == "" then
-						pcall(mf.close)
-					end
 				end,
 			})
 

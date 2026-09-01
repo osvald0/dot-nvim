@@ -90,7 +90,25 @@ opts.desc = "Alternate buffer"
 keymap.set("n", "<leader><Tab>", "<C-^>", opts)
 
 opts.desc = "Delete current buffer"
-keymap.set("n", "<leader>bd", ":bdelete<CR>", opts)
+keymap.set("n", "<leader>bd", function()
+	local current = vim.api.nvim_get_current_buf()
+	local target = vim.fn.bufnr("#")
+
+	if target == current or vim.fn.buflisted(target) == 0 then
+		target = nil
+		for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+			if buffer ~= current and vim.fn.buflisted(buffer) == 1 then
+				target = buffer
+				break
+			end
+		end
+	end
+
+	vim.cmd.bdelete(current)
+	if target and vim.fn.buflisted(current) == 0 and vim.api.nvim_buf_is_valid(target) then
+		vim.api.nvim_set_current_buf(target)
+	end
+end, opts)
 
 vim.keymap.set("n", "<leader>fT", function()
 	local file_dir = vim.fn.expand("%:p:h")
