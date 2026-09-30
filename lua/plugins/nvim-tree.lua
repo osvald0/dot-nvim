@@ -22,8 +22,8 @@ return {
 			on_attach = function(bufnr)
 				local api = require("nvim-tree.api")
 				api.config.mappings.default_on_attach(bufnr)
-				vim.keymap.set("n", "h", api.node.navigate.parent_close, {
-					desc = "nvim-tree: Close Directory",
+				vim.keymap.set("n", "h", api.tree.change_root_to_parent, {
+					desc = "nvim-tree: Up",
 					buffer = bufnr,
 					noremap = true,
 					silent = true,
@@ -32,7 +32,7 @@ return {
 				vim.keymap.set("n", "+", function()
 					api.tree.resize({ relative = 5 })
 				end, { desc = "nvim-tree: Widen", buffer = bufnr, noremap = true, silent = true, nowait = true })
-				vim.keymap.set("n", "=", function()
+				vim.keymap.set("n", "-", function()
 					api.tree.resize({ relative = -5 })
 				end, { desc = "nvim-tree: Narrow", buffer = bufnr, noremap = true, silent = true, nowait = true })
 			end,

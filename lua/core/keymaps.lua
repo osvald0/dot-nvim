@@ -118,7 +118,31 @@ opts.desc = "Alternate buffer"
 keymap.set("n", "<leader><Tab>", "<C-^>", opts)
 --
 opts.desc = "Delete current buffer"
-keymap.set("n", "<leader>bd", ":bdelete<CR>", opts)
+keymap.set("n", "<leader>bd", function()
+	local current = vim.api.nvim_get_current_buf()
+	if vim.bo[current].modified then
+		vim.notify("Buffer has unsaved changes", vim.log.levels.WARN)
+		return
+	end
+
+	local target = vim.fn.bufnr("#")
+	if target == current or target == -1 or vim.fn.buflisted(target) == 0 then
+		target = nil
+		for _, info in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+			if info.bufnr ~= current then
+				target = info.bufnr
+				break
+			end
+		end
+	end
+	target = target or vim.api.nvim_create_buf(true, false)
+
+	-- Swap buffers in every window first so :bdelete does not close any window
+	for _, win in ipairs(vim.fn.win_findbuf(current)) do
+		vim.api.nvim_win_set_buf(win, target)
+	end
+	vim.cmd.bdelete(current)
+end, opts)
 --
 -- vim.keymap.set("n", "<leader>fT", function()
 -- 	local file_dir = vim.fn.expand("%:p:h")

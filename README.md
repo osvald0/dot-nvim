@@ -46,7 +46,7 @@ Leader keys: `<Space>` (leader), `,` (localleader).
 - **Git** — gitsigns
 - **Navigation** — flash.nvim (labeled jumps)
 - **Buffer tabs** — bufferline.nvim
-- **Editing/UI** — mini.nvim, which-key, trouble, todo-comments, indent-blankline, render-markdown
+- **Editing/UI**: mini.nvim, which-key, trouble, todo-comments, indent-blankline, markview
 
 ## Keymaps
 
